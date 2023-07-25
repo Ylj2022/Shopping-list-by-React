@@ -17,14 +17,14 @@ function App() {
 
 
   const deleteItem = (id) => {
-    if (window.confirm('Are you sure that you want to delete the item?')) {
+    if (window.confirm('Are you sure?')) {
       setItem(item.filter((eachItem) => eachItem.id !== id)
       )
     }
   }
 
   const clearAllItems = () => {
-    if (window.confirm("Are you sure that you want to clear all items?")) {
+    if (window.confirm("Are you sure to clear all items?")) {
 
       setItem([]);
 
