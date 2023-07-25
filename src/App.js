@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { v4 as uuidv4 } from "uuid"
+import { useState } from "react"
+
+import Header from "./components/Header"
+import Form from "./components/Form"
+import Itemlist from "./components/Itemlist"
+import ItemData from "./components/ItemData"
+import ClearAll from "./components/ClearAll"
 
 function App() {
+  const [item, setItem] = useState(ItemData)
+
+  const addItem = (newItem) => {
+    newItem.id = uuidv4()
+    setItem([newItem, ...item])
+  }
+
+
+  const deleteItem = (id) => {
+    if (window.confirm('Are you sure that you want to delete the item?')) {
+      setItem(item.filter((eachItem) => eachItem.id !== id)
+      )
+    }
+  }
+
+  const clearAllItems = () => {
+    if (window.confirm("Are you sure that you want to clear all items?")) {
+
+      setItem([]);
+
+    }
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <Header />
+        <Form handleAdd={addItem} />
+        <Itemlist item={item} handleDelete={deleteItem} />
+        <ClearAll handleClear={clearAllItems} />
+      </div>
+    </>
   );
 }
 
